@@ -1,7 +1,7 @@
 hs.keycodes.inputSourceChanged(function()
 
     local currentSourceID = hs.keycodes.currentSourceID()
-    local currentSourceText = string.sub(currentSourceID, string.find(currentSourceID, '%w+$')):upper()
+    local currentSourceText = currentSourceID:sub(string.find(currentSourceID, '%w+$')):upper()
     
     -- 关闭重复提示
     hs.alert.closeSpecific(showUUID)
