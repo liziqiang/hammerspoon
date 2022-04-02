@@ -8,23 +8,20 @@ function watchApplicationSwitch()
     -- app to expected ime config
     -- app和对应的输入法
     local app2Ime = {
-        {'/Applications/iTerm.app', 'ABC'},
-        {'/Applications/Visual Studio Code.app', 'ABC'},
-        {'/Applications/Xcode.app', 'ABC'},
-        {'/Applications/Microsoft Edge.app', 'ABC'},
+        ['/Applications/Alfred.app'] = 'ABC',
+        ['/Applications/iTerm.app'] = 'ABC',
+        ['/Applications/Visual Studio Code.app'] = 'ABC',
+        ['/Applications/Xcode.app'] = 'ABC',
+        ['/Applications/Microsoft Edge.app'] = 'ABC',
     }
 
     function updateFocusAppInputMethod()
-        local ime = 'ABC'
         local focusAppPath = hs.window.frontmostWindow():application():path()
-        for index, app in pairs(app2Ime) do
-            if focusAppPath == app[1] then
-                ime = app[2]
-                break
-            end
-        end
+        local applicationIme = app2Ime[focusAppPath]
 
-        hs.keycodes.currentSourceID(ime2Source[ime])
+        if applicationIme then
+            hs.keycodes.currentSourceID(ime2Source[applicationIme])
+        end
     end
 
     -- helper hotkey to figure out the app path and name of current focused window
