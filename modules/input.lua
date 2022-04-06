@@ -18,7 +18,7 @@ function watchApplicationSwitch()
         local focusAppPath = hs.window.frontmostWindow():application():path()
         local applicationIme = app2Ime[focusAppPath]
 
-        if applicationIme then
+        if applicationIme and applicationIme ~= hs.keycodes.currentSourceID() then
             hs.keycodes.currentSourceID(ime2Source[applicationIme])
         end
     end
@@ -55,7 +55,9 @@ function watchInputSourceChange()
         local currentSourceText = currentSourceID:sub(string.find(currentSourceID, '%w+$')):upper()
         
         -- 关闭重复提示
-        hs.alert.closeSpecific(showUUID)
+        if showUUID then
+            hs.alert.closeSpecific(showUUID)
+        end
 
         showUUID = hs.alert.show(currentSourceText, {
             textSize = 40,
