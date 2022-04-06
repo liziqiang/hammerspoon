@@ -1,5 +1,20 @@
+local obj={}
+obj.__index = obj
+
+-- Metadata
+obj.name = "Input"
+obj.version = "1.0"
+obj.author = "liziqiang <ziqiang.lee@gmail.com>"
+obj.homepage = "https://github.com/Hammerspoon/Spoons"
+obj.license = "MIT - https://opensource.org/licenses/MIT"
+
+function obj:init()
+    self.watchApplicationSwitch()
+    self.watchInputSourceChange()
+end
+
 -- 自动切换输入法
-function watchApplicationSwitch()
+function obj:watchApplicationSwitch()
     local ime2Source = {
         ABC = 'com.apple.keylayout.ABC',
         RIME = 'im.rime.inputmethod.Squirrel.Rime',
@@ -49,7 +64,7 @@ function watchApplicationSwitch()
 end
 
 -- 输入法切换提示
-function watchInputSourceChange()
+function obj:watchInputSourceChange()
     hs.keycodes.inputSourceChanged(function()
         local currentSourceID = hs.keycodes.currentSourceID()
         local currentSourceText = currentSourceID:sub(string.find(currentSourceID, '%w+$')):upper()
@@ -67,5 +82,4 @@ function watchInputSourceChange()
     end)
 end
 
-watchApplicationSwitch()
-watchInputSourceChange()
+return obj
