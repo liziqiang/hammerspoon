@@ -26,12 +26,7 @@ function obj:init()
     self.urlApi = 'https://www.tianqiapi.com/api/?version=v1&appid=46231859&appsecret=JLhEg5LS'
     self.menuData = {};
     self.menubar = hs.menubar.new(true)
-    -- 定时更新数据
-    pollTimer = hs.timer.new(1800, function()
-        self:getWeather()
-    end)
-    pollTimer:fire()
-    pollTimer:start()
+    self:delayGetWeather()
 end
 
 function obj:updateMenubar()
@@ -39,8 +34,16 @@ function obj:updateMenubar()
     self.menubar:setMenu(self.menuData)
 end
 
-function obj:getWeather()
+function obj:delayGetWeather()
+    self:updateMenubar()
     self.menubar:setTitle('⌛')
+    -- 定时更新数据
+    hs.timer.doAfter(1, function()
+        self:getWeather()
+    end)
+end
+
+function obj:getWeather()
     print('fetching weather at '.. os.date("%Y-%m-%d %H:%M:%S", os.time()))
     hs.http.doAsyncRequest(self.urlApi, "GET", nil, nil, function(code, body, htable)
         if code ~= 200 then
@@ -55,7 +58,10 @@ function obj:getWeather()
             if k == 1 then
                 self.menubar:setTitle(weaEmoji[v.wea_img] .. "  " .. v.tem)
                 table.insert(self.menuData, {
-                    title = string.format("%s七日天气预报 - 更新时间%s", rawjson.city, rawjson.update_time)
+                    title = string.format("%s七日天气预报 - 更新时间%s", rawjson.city, rawjson.update_time),
+                    fn = function()
+                        obj:delayGetWeather()
+                    end
                 })
                 table.insert(self.menuData, { title = '-' })
             end
