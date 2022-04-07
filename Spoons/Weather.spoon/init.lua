@@ -67,7 +67,7 @@ function obj:delayGetWeather()
 end
 
 function obj:getWeather()
-    print('fetching weather at ' .. os.date("%Y-%m-%d %H:%M:%S", os.time()))
+    print(string.format('-- %s: fetch weather data', obj.name))
     hs.http.doAsyncRequest(self.urlApi, "GET", nil, nil, function(code, body, htable)
         if code ~= 200 then
             hs.alert.show('fetch weather error:' .. code)
@@ -76,6 +76,7 @@ function obj:getWeather()
         rawjson = hs.json.decode(body)
         city = rawjson.city
         self.menuData = {}
+        print(string.format('-- %s: update time is %s', obj.name, rawjson.update_time))
         local weatherItem = "%s %s %s %s~%s %s"
         for k, v in pairs(rawjson.data) do
             if k == 1 then
