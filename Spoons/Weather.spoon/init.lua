@@ -38,23 +38,23 @@ end
 
 -- 定时更新数据
 function obj:checkWithInterval()
-    if pollTimer then
-        pollTimer:stop()
+    if obj.pollTimer then
+        obj.pollTimer:stop()
     end
-    pollTimer = hs.timer.new(1800, function()
+    obj.pollTimer = hs.timer.new(1800, function()
         self:delayGetWeather()
     end)
-    pollTimer:start()
+    obj.pollTimer:start()
 end
 
 function obj:bindCaffeinate()
-    cw = hs.caffeinate.watcher.new(function(eventType)
+    obj.cw = hs.caffeinate.watcher.new(function(eventType)
         if (eventType == hs.caffeinate.watcher.screensDidUnlock) then
             obj:delayGetWeather()
             obj:checkWithInterval()
         end
     end)
-    cw:start()
+    obj.cw:start()
 end
 
 function obj:delayGetWeather()

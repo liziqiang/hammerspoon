@@ -59,8 +59,8 @@ function obj:watchApplicationSwitch()
         end
     end
 
-    appWatcher = hs.application.watcher.new(applicationWatcher)
-    appWatcher:start()
+    obj.appWatcher = hs.application.watcher.new(applicationWatcher)
+    obj.appWatcher:start()
 end
 
 -- 输入法切换提示
