@@ -1,4 +1,4 @@
-local obj={}
+local obj = {}
 obj.__index = obj
 
 -- Metadata
@@ -26,12 +26,35 @@ function obj:init()
     self.urlApi = 'https://www.tianqiapi.com/api/?version=v1&appid=46231859&appsecret=JLhEg5LS'
     self.menuData = {};
     self.menubar = hs.menubar.new(true)
+    self.bindCaffeinate()
     self:delayGetWeather()
+    self:checkWithInterval()
 end
 
 function obj:updateMenubar()
     self.menubar:setTooltip("天气预报")
     self.menubar:setMenu(self.menuData)
+end
+
+-- 定时更新数据
+function obj:checkWithInterval()
+    if pollTimer then
+        pollTimer:stop()
+    end
+    pollTimer = hs.timer.new(1800, function()
+        self:delayGetWeather()
+    end)
+    pollTimer:start()
+end
+
+function obj:bindCaffeinate()
+    cw = hs.caffeinate.watcher.new(function(eventType)
+        if (eventType == hs.caffeinate.watcher.screensDidUnlock) then
+            obj:delayGetWeather()
+            obj:checkWithInterval()
+        end
+    end)
+    cw:start()
 end
 
 function obj:delayGetWeather()
@@ -44,7 +67,7 @@ function obj:delayGetWeather()
 end
 
 function obj:getWeather()
-    print('fetching weather at '.. os.date("%Y-%m-%d %H:%M:%S", os.time()))
+    print('fetching weather at ' .. os.date("%Y-%m-%d %H:%M:%S", os.time()))
     hs.http.doAsyncRequest(self.urlApi, "GET", nil, nil, function(code, body, htable)
         if code ~= 200 then
             hs.alert.show('fetch weather error:' .. code)
@@ -63,10 +86,14 @@ function obj:getWeather()
                         obj:delayGetWeather()
                     end
                 })
-                table.insert(self.menuData, { title = '-' })
+                table.insert(self.menuData, {
+                    title = '-'
+                })
             end
             titlestr = string.format(weatherItem, weaEmoji[v.wea_img], v.date, v.week, v.tem2, v.tem1, v.wea)
-            table.insert(self.menuData, { title = titlestr })
+            table.insert(self.menuData, {
+                title = titlestr
+            })
         end
         self:updateMenubar()
     end)
