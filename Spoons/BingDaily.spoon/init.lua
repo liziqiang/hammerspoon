@@ -72,12 +72,28 @@ local function bingRequest()
 end
 
 function obj:init()
-    if obj.timer == nil then
-        obj.timer = hs.timer.doEvery(3*60*60, function() bingRequest() end)
-        obj.timer:setNextTrigger(5)
-    else
-        obj.timer:start()
+    bingRequest()
+    self:bindCaffeinate()
+    self:checkWithInterval()
+end
+
+-- 定时更新数据
+function obj:checkWithInterval()
+    if obj.timer then
+        obj.timer:stop()
     end
+    obj.timer = hs.timer.new(10800, function() bingRequest() end)
+    obj.timer:start()
+end
+
+function obj:bindCaffeinate()
+    obj.cw = hs.caffeinate.watcher.new(function(eventType)
+        if (eventType == hs.caffeinate.watcher.screensDidUnlock) then
+            bingRequest()
+            obj.checkWithInterval()
+        end
+    end)
+    obj.cw:start()
 end
 
 return obj
