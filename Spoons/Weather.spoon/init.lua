@@ -61,9 +61,10 @@ function obj:delayGetWeather()
     self:updateMenubar()
     self.menubar:setTitle('⌛')
     -- 定时更新数据
-    hs.timer.doAfter(1, function()
+    obj.tm = hs.timer.doAfter(1, function()
         self:getWeather()
     end)
+    obj.tm:start()
 end
 
 function obj:getWeather()
