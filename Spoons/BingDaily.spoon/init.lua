@@ -60,6 +60,7 @@ local function bingRequest()
                         obj.task:terminate()
                         obj.task = nil
                     end
+                    print(string.format('-- %s: image url: %s', obj.name, obj.full_url))
                     local localpath = os.getenv("HOME") .. "/.Trash/" .. obj.file_name
                     obj.task = hs.task.new("/usr/bin/curl", curl_callback, {"-A", user_agent_str, obj.full_url, "-o", localpath})
                     obj.task:start()
