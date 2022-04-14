@@ -4,8 +4,7 @@ hs.alert.defaultStyle.fillColor = {
     alpha = 0.5
 }
 hs.alert.defaultStyle.strokeColor = {
-    white = 0,
-    alpha = 0.5
+    alpha = 0
 }
 
 -- 定义需要加载的spoon

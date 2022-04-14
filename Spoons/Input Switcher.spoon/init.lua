@@ -77,7 +77,7 @@ function obj:watchInputSourceChange()
         showUUID = hs.alert.show(currentSourceText, {
             textSize = 40,
             padding = 50
-        })
+        }, 1)
 
     end)
 end
