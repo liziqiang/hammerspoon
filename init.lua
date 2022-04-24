@@ -9,7 +9,7 @@ hs.alert.defaultStyle.strokeColor = {
 
 -- 定义需要加载的spoon
 if not hspoon_list then
-    hspoon_list = {"BingDaily", "Input Switcher", "Weather", "Reload Config", "WiFi"}
+    hspoon_list = {"BingDaily", "Input Switcher", "Weather", "Reload Config"}
 end
 
 -- 加载Spoon
