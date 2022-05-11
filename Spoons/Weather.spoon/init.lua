@@ -77,7 +77,7 @@ function obj:getWeather()
                 self.errorRetryCount = self.errorRetryCount + 1
                 self:delayGetWeather()
             else
-                print(string.format('-- %s: fetch weather error: %s', code))
+                print(string.format('-- %s: fetch weather error: %s', obj.name, code))
             end
             return
         end
