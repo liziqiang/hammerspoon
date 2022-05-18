@@ -31,10 +31,11 @@ function obj:watchApplicationSwitch()
 
     function updateFocusAppInputMethod()
         local focusAppPath = hs.window.frontmostWindow():application():path()
-        local applicationIme = app2Ime[focusAppPath]
-
-        if applicationIme and applicationIme ~= hs.keycodes.currentSourceID() then
-            hs.keycodes.currentSourceID(ime2Source[applicationIme])
+        if focusAppPath then
+            local applicationIme = app2Ime[focusAppPath]
+            if applicationIme and applicationIme ~= hs.keycodes.currentSourceID() then
+                hs.keycodes.currentSourceID(ime2Source[applicationIme])
+            end
         end
     end
 

@@ -25,7 +25,7 @@ weaEmoji = {
 function obj:init()
     self.urlApi = 'https://www.tianqiapi.com/api/?version=v1&appid=46231859&appsecret=JLhEg5LS'
     self.errorRetryCount = 0
-    self.maxErrorRetryCount = 10
+    self.maxErrorRetryCount = 50
     self.menuData = {};
     self.menubar = hs.menubar.new(true)
     self.bindCaffeinate()
@@ -73,6 +73,7 @@ function obj:getWeather()
     print(string.format('-- %s: fetch weather data', obj.name))
     hs.http.doAsyncRequest(self.urlApi, "GET", nil, nil, function(code, body, htable)
         if code ~= 200 then
+            print(string.format('-- %s: fetch weather retry: %s', obj.name, self.errorRetryCount))
             if self.errorRetryCount < self.maxErrorRetryCount then
                 self.errorRetryCount = self.errorRetryCount + 1
                 self:delayGetWeather()
@@ -81,6 +82,7 @@ function obj:getWeather()
             end
             return
         end
+        self.errorRetryCount = 0
         rawjson = hs.json.decode(body)
         city = rawjson.city
         self.menuData = {}
