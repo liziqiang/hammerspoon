@@ -7,12 +7,12 @@ hs.alert.defaultStyle.strokeColor = {
     alpha = 0
 }
 
--- 定义需要加载的spoon
-if not hspoon_list then
-    hspoon_list = {"BingDaily", "Input Switcher", "Weather", "Reload Config", "WiFi"}
-end
+-- 定义不需要加载的spoon，默认下载所有
+hspoon_list = {""}
 
 -- 加载Spoon
-for _, v in pairs(hspoon_list) do
-    hs.loadSpoon(v)
+for _, v in pairs(hs.spoons.list()) do
+    if not hs.fnutils.contains(hspoon_list, v.name) then
+        hs.loadSpoon(v.name)
+    end
 end
