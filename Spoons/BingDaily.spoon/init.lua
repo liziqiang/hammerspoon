@@ -36,7 +36,7 @@ local function curl_callback(exitCode, stdOut, stdErr)
 end
 
 local function bingRequest()
-    local user_agent_str = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.60 Safari/537.36 Edg/100.0.1185.29"
+    local user_agent_str = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.51"
     local json_req_url = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1"
     hs.http.asyncGet(json_req_url, {["User-Agent"]=user_agent_str}, function(stat,body,header)
         if stat == 200 then
