@@ -5,7 +5,7 @@ local hk = require "hs.hotkey"
 -- Comment out this following line if you wish to see animations
 local windowMeta = {}
 window = require "hs.window"
-hs.window.animationDuration = 0
+hs.window.animationDuration = 0.25
 grid = require "hs.grid"
 grid.setMargins('0, 0')
 
