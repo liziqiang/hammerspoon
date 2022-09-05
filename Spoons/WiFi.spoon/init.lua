@@ -30,6 +30,7 @@ function ssidChangedCallback()
             if not isProxyEnabled then
                 hs.osascript.applescript('tell application "ClashX" to toggleProxy')
             end
+            handleBattery()
         else
             if isProxyEnabled then
                 hs.osascript.applescript('tell application "ClashX" to toggleProxy')
@@ -37,6 +38,18 @@ function ssidChangedCallback()
         end
     end)
     ssidChangeTimer:start()
+end
+
+-- 检测电源是否为AC，如果是则启动时间机器
+function handleBattery()
+    if batteryWatcher == nil then
+        batteryWatcher = hs.battery.watcher.new(function ()
+            if hs.battery.powerSource() == 'AC Power' then
+                hs.osascript.applescript('do shell script "tmutil startbackup"')
+            end
+        end)
+        batteryWatcher:start()
+    end
 end
 
 return obj
