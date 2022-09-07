@@ -30,7 +30,7 @@ function ssidChangedCallback()
             if not isProxyEnabled then
                 hs.osascript.applescript('tell application "ClashX" to toggleProxy')
             end
-            handleBattery()
+            -- handleBattery()
         else
             if isProxyEnabled then
                 hs.osascript.applescript('tell application "ClashX" to toggleProxy')
