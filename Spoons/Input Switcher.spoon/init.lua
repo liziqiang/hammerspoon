@@ -69,13 +69,18 @@ function obj:watchInputSourceChange()
     hs.keycodes.inputSourceChanged(function()
         local currentSourceID = hs.keycodes.currentSourceID()
         local currentSourceText = currentSourceID:sub(string.find(currentSourceID, '%w+$')):upper()
+        local sourceToLabel = {
+            ABC = 'ABC',
+            RIME = 'RIME',
+            SHUANGPIN = '双拼',
+        }
         
         -- 关闭重复提示
         if showUUID then
             hs.alert.closeSpecific(showUUID)
         end
 
-        showUUID = hs.alert.show(currentSourceText, {
+        showUUID = hs.alert.show(sourceToLabel[currentSourceText], {
             textSize = 40,
             padding = 50
         }, 1)
