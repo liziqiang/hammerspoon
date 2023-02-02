@@ -71,6 +71,7 @@ function obj:watchInputSourceChange()
         local currentSourceText = currentSourceID:sub(string.find(currentSourceID, '%w+$')):upper()
         local sourceToLabel = {
             ABC = 'ABC',
+            HANS = 'RIME',
             RIME = 'RIME',
             SHUANGPIN = '双拼',
         }
