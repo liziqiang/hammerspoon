@@ -90,7 +90,7 @@ function obj:getWeather()
         local weatherItem = "%s %s %s~%s %s"
         for k, v in pairs(rawjson.data) do
             if k == 1 then
-                self.menubar:setTitle(weaEmoji[v.wea_img] .. "  " .. v.tem_day)
+                self.menubar:setTitle(weaEmoji[v.wea_img])
                 table.insert(self.menuData, {
                     title = string.format("%s七日天气预报 - 更新时间%s", rawjson.city, rawjson.update_time),
                     fn = function()
