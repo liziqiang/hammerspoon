@@ -23,7 +23,7 @@ weaEmoji = {
 }
 
 function obj:init()
-    self.urlApi = 'https://www.tianqiapi.com/api/?version=v1&appid=46231859&appsecret=JLhEg5LS'
+    self.urlApi = 'https://v0.yiketianqi.com/free/week?appid=46231859&appsecret=JLhEg5LS'
     self.errorRetryCount = 0
     self.maxErrorRetryCount = 50
     self.menuData = {};
@@ -87,10 +87,10 @@ function obj:getWeather()
         city = rawjson.city
         self.menuData = {}
         print(string.format('-- %s: update time is %s', obj.name, rawjson.update_time))
-        local weatherItem = "%s %s %s %s~%s %s"
+        local weatherItem = "%s %s %s~%s %s"
         for k, v in pairs(rawjson.data) do
             if k == 1 then
-                self.menubar:setTitle(weaEmoji[v.wea_img] .. "  " .. v.tem)
+                self.menubar:setTitle(weaEmoji[v.wea_img] .. "  " .. v.tem_day)
                 table.insert(self.menuData, {
                     title = string.format("%s七日天气预报 - 更新时间%s", rawjson.city, rawjson.update_time),
                     fn = function()
@@ -101,7 +101,7 @@ function obj:getWeather()
                     title = '-'
                 })
             end
-            titlestr = string.format(weatherItem, weaEmoji[v.wea_img], v.date, v.week, v.tem2, v.tem1, v.wea)
+            titlestr = string.format(weatherItem, weaEmoji[v.wea_img], v.date, v.tem_night, v.tem_day, v.wea)
             table.insert(self.menuData, {
                 title = titlestr
             })
