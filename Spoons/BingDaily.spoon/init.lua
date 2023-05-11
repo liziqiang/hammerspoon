@@ -93,6 +93,11 @@ function obj:bindCaffeinate()
             bingRequest()
             obj.checkWithInterval()
         end
+        if (eventType == hs.caffeinate.watcher.systemWillSleep) then
+            if obj.timer then
+                obj.timer:stop()
+            end
+        end
     end)
     obj.cw:start()
 end

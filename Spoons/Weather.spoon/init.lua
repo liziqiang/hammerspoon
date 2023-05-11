@@ -25,7 +25,7 @@ weaEmoji = {
 function obj:init()
     self.urlApi = 'https://v0.yiketianqi.com/free/week?appid=46231859&appsecret=JLhEg5LS'
     self.errorRetryCount = 0
-    self.maxErrorRetryCount = 50
+    self.maxErrorRetryCount = 3
     self.menuData = {};
     self.menubar = hs.menubar.new(true)
     self.bindCaffeinate()
@@ -54,6 +54,11 @@ function obj:bindCaffeinate()
         if (eventType == hs.caffeinate.watcher.screensDidUnlock) then
             obj:delayGetWeather()
             obj:checkWithInterval()
+        end
+        if (eventType == hs.caffeinate.watcher.systemWillSleep) then
+            if obj.pollTimer then
+                obj.pollTimer:stop()
+            end
         end
     end)
     obj.cw:start()
