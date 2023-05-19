@@ -68,20 +68,28 @@ end
 function obj:watchInputSourceChange()
     hs.keycodes.inputSourceChanged(function()
         local currentSourceID = hs.keycodes.currentSourceID()
-        local currentSourceText = currentSourceID:sub(string.find(currentSourceID, '%w+$')):upper()
-        local sourceToLabel = {
-            ABC = 'ABC',
-            HANS = 'RIME',
-            RIME = 'RIME',
-            SHUANGPIN = '双拼',
-        }
+        local labelText;
+        if currentSourceID == 'com.apple.keylayout.ABC' then
+            labelText = '英文'
+        else
+            labelText = '中文'
+        end
+
+        -- local currentSourceText = currentSourceID:sub(string.find(currentSourceID, '%w+$')):upper()
+        -- local sourceToLabel = {
+        --     ABC = 'ABC',
+        --     HANS = 'RIME',
+        --     RIME = 'RIME',
+        --     PINYIN = '微信',
+        --     SHUANGPIN = '双拼',
+        -- }
         
         -- 关闭重复提示
         if showUUID then
             hs.alert.closeSpecific(showUUID)
         end
 
-        showUUID = hs.alert.show(sourceToLabel[currentSourceText], {
+        showUUID = hs.alert.show(labelText, {
             textSize = 40,
             padding = 50
         }, 1)
