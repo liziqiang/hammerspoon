@@ -18,8 +18,8 @@ function obj:init()
     configFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon", reloadConfig)
     configFileWatcher:start()
     hs.alert.show("Config Reloaded", {
-        textSize = 30,
-        padding = 30
+        textSize = 32,
+        padding = 24
     }, 1)
 end
 
