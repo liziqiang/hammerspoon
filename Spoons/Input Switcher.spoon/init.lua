@@ -75,15 +75,6 @@ function obj:watchInputSourceChange()
             labelText = '中文'
         end
 
-        -- local currentSourceText = currentSourceID:sub(string.find(currentSourceID, '%w+$')):upper()
-        -- local sourceToLabel = {
-        --     ABC = 'ABC',
-        --     HANS = 'RIME',
-        --     RIME = 'RIME',
-        --     PINYIN = '微信',
-        --     SHUANGPIN = '双拼',
-        -- }
-        
         -- 关闭重复提示
         if showUUID then
             hs.alert.closeSpecific(showUUID)
