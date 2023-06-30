@@ -29,6 +29,10 @@ function obj:init()
     self.menuData = {};
     self.menubar = hs.menubar.new(true)
     self.bindCaffeinate()
+    self:update()
+end
+
+function obj:update()
     self:delayGetWeather()
     self:checkWithInterval()
 end
@@ -52,8 +56,7 @@ end
 function obj:bindCaffeinate()
     obj.cw = hs.caffeinate.watcher.new(function(eventType)
         if (eventType == hs.caffeinate.watcher.screensDidUnlock) then
-            obj:delayGetWeather()
-            obj:checkWithInterval()
+            obj:update()
         end
         if (eventType == hs.caffeinate.watcher.systemWillSleep) then
             if obj.pollTimer then
