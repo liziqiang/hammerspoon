@@ -24,6 +24,7 @@ function obj:init()
     function handleWifi(devices)
         local hasUsb = isInTable('AX88179A', hs.usb.attachedDevices())
         hs.wifi.setPower(not hasUsb)
+        print('WiFi: '..(hasUsb and 'off' or 'on'))
     end
     usbWatcher = hs.usb.watcher.new(handleWifi)
     usbWatcher:start()
