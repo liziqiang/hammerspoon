@@ -23,6 +23,7 @@ function obj:watchApplicationSwitch()
     -- app to expected ime config
     -- app和对应的输入法
     local app2Ime = {
+        ['/Applications/Warp.app'] = 'ABC',
         ['/Applications/iTerm.app'] = 'ABC',
         ['/Applications/Visual Studio Code.app'] = 'ABC',
         ['/Applications/Xcode.app'] = 'ABC',
