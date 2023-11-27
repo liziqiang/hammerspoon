@@ -62,6 +62,6 @@ end
 hk.bind({"shift", "cmd"}, "return", module.maximizeWindow)
 hk.bind({"shift", "cmd"}, "space", module.centerOnScreen)
 hk.bind({"shift", "cmd"}, "\\", module.locate)
-hk.bind({"shift", "cmd"}, "]", module.locateBig)
+hk.bind({"shift", "cmd"}, "/", module.locateBig)
 
 return module
