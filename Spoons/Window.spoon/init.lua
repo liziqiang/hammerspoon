@@ -48,13 +48,13 @@ end
 -- 自定义窗口尺寸
 module.locate = function()
     local this = windowMeta.new()
-    local cell = hs.geometry(this.screenGrid.w * 1 / 8, this.screenGrid.h * 1 / 12, this.screenGrid.w * 12 / 16, this.screenGrid.h * 8 / 12)
+    local cell = hs.geometry(this.screenGrid.w * 1 / 16, this.screenGrid.h * 1 / 16, this.screenGrid.w * 14 / 16, this.screenGrid.h * 24 / 32)
     grid.set(this.window, cell, this.screen)
 end
 -- 自定义窗口尺寸 - big
 module.locateBig = function()
     local this = windowMeta.new()
-    local cell = hs.geometry(this.screenGrid.w * 1 / 16, 0, this.screenGrid.w * 14 / 16, this.screenGrid.h * 10 / 12)
+    local cell = hs.geometry(this.screenGrid.w * 1 / 32, 0, this.screenGrid.w * 30 / 32, this.screenGrid.h * 29 / 32)
     grid.set(this.window, cell, this.screen)
 end
 
