@@ -28,12 +28,14 @@ function ssidChangedCallback()
         local isProxyEnabled = obj.succ and string.find(obj.output, 'Enabled: Yes') ~= nil
         if hs.fnutils.contains(obj.ssidToEnableProxy, obj.ssid) then
             if not isProxyEnabled then
-                hs.osascript.applescript('tell application "ClashX" to toggleProxy')
+                hs.eventtap.keyStroke({"cmd", "shift", "alt", "ctrl"}, "m")
+                -- hs.osascript.applescript('tell application "ClashX" to toggleProxy')
             end
             -- handleBattery()
         else
             if isProxyEnabled then
-                hs.osascript.applescript('tell application "ClashX" to toggleProxy')
+                hs.eventtap.keyStroke({"cmd", "shift", "alt", "ctrl"}, "m")
+                -- hs.osascript.applescript('tell application "ClashX" to toggleProxy')
             end
         end
     end)
