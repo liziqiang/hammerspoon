@@ -10,17 +10,24 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 function obj:init()
     local configFileWatcher
-    function reloadConfig()
-        configFileWatcher:stop()
-        configFileWatcher = nil
-        hs.reload()
+    function reloadConfig(paths)
+        local changed = hs.fnutils.some(paths, function (elem)
+            local ending = '.lua'
+            return elem:sub(-#ending) == ending
+        end)
+        if changed then
+            configFileWatcher:stop()
+            configFileWatcher = nil
+            hs.reload()
+            hs.alert.show("Config Reloaded", {
+                textSize = 32,
+                padding = 24
+            }, 1)
+        end
     end
     configFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon", reloadConfig)
     configFileWatcher:start()
-    hs.alert.show("Config Reloaded", {
-        textSize = 32,
-        padding = 24
-    }, 1)
+
 end
 
 return obj
