@@ -9,12 +9,12 @@ obj.homepage = "https://github.com/Hammerspoon/Spoons"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 function WiFiWatcherCallback()
-    if ssidChangeTimer ~= nil then
-        ssidChangeTimer:stop()
+    if ChangeTimer ~= nil then
+        ChangeTimer:stop()
     end
-    ssidChangeTimer = hs.timer.doAfter(1, function()
+    ChangeTimer = hs.timer.doAfter(1, function()
         -- 通过ping检测是否需要连接代理
-        hs.network.ping.ping("google.com", 5, 1.0, 2.0, "any", function(server, eventType)
+        hs.network.ping.ping("google.com", 1, 1.0, 2.0, "any", function(server, eventType)
             local isProxyEnabled = obj:isProxyEnabled()
             -- 如果可以访问谷歌且代理打开则关闭代理
             if eventType == "receivedPacket" then
@@ -22,14 +22,16 @@ function WiFiWatcherCallback()
                     obj:toggleProxy()
                 end
             else
-                -- 如果不可以访问谷歌且代理未打开则打开代理
-                if not isProxyEnabled then
-                    obj:toggleProxy()
+                if eventType == "didFail" or eventType == "sendPacketFailed" then
+                    -- 如果不可以访问谷歌且代理未打开则打开代理
+                    if not isProxyEnabled then
+                        obj:toggleProxy()
+                    end
                 end
             end
         end)
     end)
-    ssidChangeTimer:start()
+    ChangeTimer:start()
 end
 
 function obj:isProxyEnabled()
@@ -40,10 +42,10 @@ function obj:isProxyEnabled()
     repeat
         index = index + 1
         local succ, output = hs.osascript.applescript('do shell script "networksetup -getwebproxy \\"' ..
-            obj.gateway[index] .. '\\""')
+            gateway[index] .. '\\""')
         isProxyEnabled = succ and string.find(output, enabled) ~= nil
-        print(index, output)
     until (isProxyEnabled or index >= #gateway)
+    return isProxyEnabled
 end
 
 function obj:toggleProxy()
@@ -52,9 +54,9 @@ function obj:toggleProxy()
 end
 
 function obj:init()
+    WiFiWatcherCallback()
     wifiWatcher = hs.wifi.watcher.new(WiFiWatcherCallback)
     wifiWatcher:start()
-    WiFiWatcherCallback()
 end
 
 return obj
