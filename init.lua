@@ -16,3 +16,15 @@ for _, v in pairs(hs.spoons.list()) do
         hs.loadSpoon(v.name)
     end
 end
+
+-- 检测电源是否为AC，如果是则启动时间机器
+--function obj:handleBattery()
+--    if batteryWatcher == nil then
+--        batteryWatcher = hs.battery.watcher.new(function()
+--            if hs.battery.powerSource() == 'AC Power' then
+--                hs.osascript.applescript('do shell script "tmutil startbackup"')
+--            end
+--        end)
+--        batteryWatcher:start()
+--    end
+--end
