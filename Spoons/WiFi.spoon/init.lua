@@ -35,15 +35,15 @@ function WiFiWatcherCallback()
 end
 
 function obj:isProxyEnabled()
-    local index = 0
+    local index = 1
     local isProxyEnabled
     local enabled = 'Enabled: Yes'
     local gateway = { 'Wi-Fi', 'USB 10/100/1000 LAN' }
     repeat
-        index = index + 1
-        local succ, output = hs.osascript.applescript('do shell script "networksetup -getwebproxy \\"' ..
-            gateway[index] .. '\\""')
+        local script = 'do shell script "networksetup -getwebproxy \\"' .. gateway[index] .. '\\""'
+        local succ, output = hs.osascript.applescript(script)
         isProxyEnabled = succ and string.find(output, enabled) ~= nil
+        index = index + 1
     until (isProxyEnabled or index >= #gateway)
     return isProxyEnabled
 end

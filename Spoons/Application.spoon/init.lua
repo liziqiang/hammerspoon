@@ -9,13 +9,20 @@ obj.homepage = "https://github.com/Hammerspoon/Spoons"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 function obj:init()
+    local index = 1
     -- 定义需要加载的App
-    local hspoon_list = {"Alfred 5", "Bartender 5", "Clash Verge", "iShot Pro", "PopClip"}
-
-    -- 加载App
-    for _, v in pairs(hspoon_list) do
-        hs.application.launchOrFocus(v)
-    end
+    local app_list = { "Alfred 5", "Bartender 5", "Clash Verge", "iShot Pro", "PopClip" }
+    repeat
+        local script = 'id of app "' .. app_list[index] .. '"';
+        local succ, bundle_id = hs.osascript.applescript(script)
+        if succ then
+            local isRunning = hs.application.get(bundle_id)
+            if not isRunning then
+                hs.application.launchOrFocusByBundleID(bundle_id)
+            end
+        end
+        index = index + 1
+    until (index >= #app_list)
 end
 
 return obj
