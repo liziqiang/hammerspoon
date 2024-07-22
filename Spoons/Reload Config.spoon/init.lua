@@ -18,11 +18,13 @@ function obj:init()
         if changed then
             configFileWatcher:stop()
             configFileWatcher = nil
-            hs.reload()
             hs.alert.show("Config Reloaded", {
                 textSize = 32,
                 padding = 24
             }, 1)
+            hs.timer.doAfter(1, function()
+                hs.reload()
+            end)
         end
     end
     configFileWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon", reloadConfig)
