@@ -20,14 +20,14 @@ function WiFiWatcherCallback()
             if eventType == "receivedPacket" then
                 if isProxyEnabled then
                     obj:toggleProxy()
-                    print("当前网络已启用代理！")
+                    print("当前网络可以科学上网，关闭本机代理！")
                 end
             else
                 if eventType == "didFail" or eventType == "sendPacketFailed" then
                     -- 如果不可以访问谷歌且代理未打开则打开代理
                     if not isProxyEnabled then
                         obj:toggleProxy()
-                        print("当前网络未启用代理！")
+                        print("当前网络不能科学上网，启用本机代理！")
                     end
                 end
             end
@@ -39,10 +39,12 @@ end
 function obj:isProxyEnabled()
     local index = 1
     local isProxyEnabled
-    local enabled = 'Enabled: Yes'
+    --local enabled = 'Enabled: Yes'
+    local enabled = 'ProxyAutoConfigEnable : 1'
     local gateway = { 'USB', 'Wi-Fi' }
     repeat
-        local script = 'do shell script "networksetup -getwebproxy \\"' .. gateway[index] .. '\\""'
+        --local script = 'do shell script "networksetup -getwebproxy \\"' .. gateway[index] .. '\\""'
+        local script = 'do shell script "scutil --proxy"'
         local succ, output = hs.osascript.applescript(script)
         isProxyEnabled = succ and string.find(output, enabled) ~= nil
         index = index + 1
