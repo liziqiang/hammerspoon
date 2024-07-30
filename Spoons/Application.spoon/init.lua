@@ -18,11 +18,14 @@ function obj:init()
         if succ then
             local isRunning = hs.application.get(bundle_id)
             if not isRunning then
+                print(app_list[index], '未启动，启动中...')
                 hs.application.launchOrFocusByBundleID(bundle_id)
+            else
+                print(app_list[index], '已启动')
             end
         end
         index = index + 1
-    until (index >= #app_list)
+    until (index > #app_list)
 end
 
 return obj
