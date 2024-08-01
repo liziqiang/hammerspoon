@@ -23,7 +23,7 @@ weaEmoji = {
 }
 
 function obj:init()
-    self.urlApi = 'https://v0.yiketianqi.com/free/week?appid=46231859&appsecret=JLhEg5LS'
+    self.urlApi = 'https://v1.yiketianqi.com/free/week?unescape=1&appid=46231859&appsecret=JLhEg5LS'
     self.errorRetryCount = 0
     self.maxErrorRetryCount = 3
     self.menuData = {};
