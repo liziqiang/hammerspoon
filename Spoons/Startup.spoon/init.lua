@@ -2,7 +2,7 @@ local obj = {}
 obj.__index = obj
 
 -- Metadata
-obj.name = "App"
+obj.name = "Startup"
 obj.version = "1.0"
 obj.author = "liziqiang <ziqiang.lee@gmail.com>"
 obj.homepage = "https://github.com/Hammerspoon/Spoons"
