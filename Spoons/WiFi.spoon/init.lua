@@ -23,7 +23,7 @@ function WiFiWatcherCallback()
                     print("当前网络可以科学上网，关闭本机代理！")
                 end
             else
-                if eventType == "didFail" or eventType == "sendPacketFailed" then
+                if not (eventType == "didStart") then
                     -- 如果不可以访问谷歌且代理未打开则打开代理
                     if not isProxyEnabled then
                         obj:toggleProxy()
