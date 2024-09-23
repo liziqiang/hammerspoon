@@ -10,7 +10,7 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 function obj:init()
     self.watchApplicationSwitch()
-    -- self.watchInputSourceChange()
+    --self.watchInputSourceChange()
 end
 
 -- 自动切换输入法
@@ -33,11 +33,14 @@ function obj:watchApplicationSwitch()
     function updateFocusAppInputMethod()
         local win = hs.window.frontmostWindow()
         if win then
-            local focusAppPath = win:application():path()
-            if focusAppPath then
-                local applicationIme = app2Ime[focusAppPath]
-                if applicationIme and applicationIme ~= hs.keycodes.currentSourceID() then
-                    hs.keycodes.currentSourceID(ime2Source[applicationIme])
+            local focusApp = win:application()
+            if focusApp then
+                local focusAppPath = focusApp:path()
+                if focusAppPath then
+                    local applicationIme = app2Ime[focusAppPath]
+                    if applicationIme and applicationIme ~= hs.keycodes.currentSourceID() then
+                        hs.keycodes.currentSourceID(ime2Source[applicationIme])
+                    end
                 end
             end
         end
