@@ -11,7 +11,7 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 function obj:init()
     local index = 1
     -- 定义需要加载的App
-    local app_list = { "Alfred 5", "Clash Verge", "iShot Pro", "PopClip", "iTerm" }
+    local app_list = { "Alfred 5", "Clash Verge", "iShot Pro", "PopClip", "iTerm", "AlCove" }
     repeat
         local script = 'id of app "' .. app_list[index] .. '"';
         local succ, bundle_id = hs.osascript.applescript(script)
