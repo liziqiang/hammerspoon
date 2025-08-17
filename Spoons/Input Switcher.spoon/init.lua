@@ -25,6 +25,7 @@ function obj:watchApplicationSwitch()
     local app2Ime = {
         ['/Applications/Warp.app'] = 'ABC',
         ['/Applications/iTerm.app'] = 'ABC',
+        ['/Applications/Ghostty.app'] = 'ABC',
         ['/Applications/Visual Studio Code.app'] = 'ABC',
         ['/Applications/Xcode.app'] = 'ABC',
         ['/Applications/Microsoft Edge.app'] = 'ABC',
