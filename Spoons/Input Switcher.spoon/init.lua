@@ -10,7 +10,7 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 function obj:init()
     self.watchApplicationSwitch()
-    --self.watchInputSourceChange()
+--     self.watchInputSourceChange()
 end
 
 -- 自动切换输入法
@@ -24,11 +24,12 @@ function obj:watchApplicationSwitch()
     -- app和对应的输入法
     local app2Ime = {
         ['/Applications/Warp.app'] = 'ABC',
+        ['/Applications/Xcode.app'] = 'ABC',
         ['/Applications/iTerm.app'] = 'ABC',
         ['/Applications/Ghostty.app'] = 'ABC',
-        ['/Applications/Visual Studio Code.app'] = 'ABC',
-        ['/Applications/Xcode.app'] = 'ABC',
+        ['/Applications/Terminal.app'] = 'ABC',
         ['/Applications/Microsoft Edge.app'] = 'ABC',
+        ['/Applications/Visual Studio Code.app'] = 'ABC',
     }
 
     function updateFocusAppInputMethod()
@@ -49,16 +50,16 @@ function obj:watchApplicationSwitch()
 
     -- helper hotkey to figure out the app path and name of current focused window
     -- 当选中某窗口按下ctrl+command+.时会显示应用的路径等信息
-    -- hs.hotkey.bind({'ctrl', 'cmd'}, ".", function()
-    --     hs.alert.show("App path:        "
-    --     ..hs.window.focusedWindow():application():path()
-    --     .."\n"
-    --     .."App name:      "
-    --     ..hs.window.focusedWindow():application():name()
-    --     .."\n"
-    --     .."IM source id:  "
-    --     ..hs.keycodes.currentSourceID())
-    -- end)
+--     hs.hotkey.bind({'ctrl', 'cmd'}, ".", function()
+--         hs.alert.show("App path:        "
+--         ..hs.window.focusedWindow():application():path()
+--         .."\n"
+--         .."App name:      "
+--         ..hs.window.focusedWindow():application():name()
+--         .."\n"
+--         .."IM source id:  "
+--         ..hs.keycodes.currentSourceID())
+--     end)
 
     -- Handle cursor focus and application's screen manage.
     -- 窗口激活时自动切换输入法
