@@ -40,17 +40,19 @@ module.maximizeWindow = function()
     hs.grid.maximizeWindow(this.window)
 end
 
--- 窗口剧中
+-- 窗口居中
 module.centerOnScreen = function()
     local this = windowMeta.new()
     this.window:centerOnScreen(this.screen)
 end
+
 -- 自定义窗口尺寸
 module.locate = function()
     local this = windowMeta.new()
     local cell = hs.geometry(this.screenGrid.w * 1 / 16, this.screenGrid.h * 1 / 16, this.screenGrid.w * 14 / 16, this.screenGrid.h * 24 / 32)
     grid.set(this.window, cell, this.screen)
 end
+
 -- 自定义窗口尺寸 - big
 module.locateBig = function()
     local this = windowMeta.new()
