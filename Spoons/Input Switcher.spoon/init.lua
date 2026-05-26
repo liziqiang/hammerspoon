@@ -10,7 +10,7 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 
 function obj:init()
     self.watchApplicationSwitch()
---     self.watchInputSourceChange()
+    -- self.watchInputSourceChange()
 end
 
 -- 自动切换输入法
